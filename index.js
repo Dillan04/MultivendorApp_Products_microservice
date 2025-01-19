@@ -1,13 +1,24 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const productRoutes = require("./api/products");
 
 const app = express();
-const mongoose = require("mongoose");
 const print = console.log;
-const cors = require("cors");
-const port=process.env.PORT||8002
-const productRoutes = require("./api/products");
+const port = process.env.PORT || 8002;
+
 app.use(express.json());
-app.use(cors());
+
+// Configure CORS to allow requests only from your React frontend
+const corsOptions = {
+  origin: ["https://multivendorapp-frontend.onrender.com", "https://multivendorapp-user-microservice.onrender.com"],// Adjust this for production (e.g., https://yourfrontend.com)
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // If your app needs to send cookies or authorization headers
+};
+
+app.use(cors(corsOptions));  // Use the configured CORS
+
 app.use(express.static(__dirname + "/public"));
 
 const { CreateChannel } = require("./utils");
@@ -22,11 +33,9 @@ async function startApp() {
 
     const channel = await CreateChannel();
 
-    
-
     await productRoutes(app, channel);
     app.listen(port, () => {
-      console.log(`User Service is Listening to Port ${8002}`);
+      console.log(`User Service is Listening to Port ${port}`);
     });
   } catch (err) {
     console.log("Failed to start app:", err);
