@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 async function startApp() {
   try {
     await mongoose.connect(process.env.DB_URI);
-    print("Connection sauce");
+    print("Connection established");
 
     const channel = await CreateChannel();
 
