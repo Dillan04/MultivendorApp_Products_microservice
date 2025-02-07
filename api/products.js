@@ -71,7 +71,7 @@ if(foundProduct.seller==req.user._id){
   res.json(deletedProduct)
 }
 else{
-  res.json({"error":"you are not the seller how you want delete product? ah chale you no dey try"})
+  res.json({"error":"you are not the seller...you cannot delete"})
 }
 
   });
