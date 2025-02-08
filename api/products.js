@@ -262,7 +262,7 @@ productRoutes = (app, channel) => {
   app.put("/cart", auth, async (req, res, next) => {
     const { _id } = req.user;
     print(req.body);
-    print("ahhjk dwd", req.body.sizes, req.body.colors);
+    print("........", req.body.sizes, req.body.colors);
     const { data } = await service.GetProductPayload(
       _id,
       { productId: req.body.product._id, amount: req.body.amount },
